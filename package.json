@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "scripts": {
+    "dev": "nodemon src/app.ts"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "express": "^4.21.0"
+  }
+}
