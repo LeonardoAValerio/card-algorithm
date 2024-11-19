@@ -4,9 +4,11 @@ import { Player } from "./Player";
 export class Game {
     players: Player[];
     numberPlayers: number = 2;
+    turnsPlayed: number;
 
     constructor() {
         this.players = this.inicializarPlayers();
+        this.turnsPlayed = 0;
     }
 
     run(): void {
@@ -16,11 +18,22 @@ export class Game {
         this.startGame();
     }
 
+    private validatePlayersHasSomeCard(): boolean {
+        let isValid = true;
+        this.players.forEach(player => {
+            if(player.deck.size == 0) isValid = false;
+        })
+        return isValid;
+    }
+
     private startGame() {
         let indexActualPlayer = 0;
-        while(true) {
-
+        while(this.validatePlayersHasSomeCard()) {
+            this.turnsPlayed++;
+            const objRound = this.players[indexActualPlayer].playCard();
+            indexActualPlayer = this.setIndexPlayer(indexActualPlayer);
         }
+        console.log("Turnos Jogados: ", this.turnsPlayed);
     }
 
     private inicializarPlayers(): Player[] {
@@ -31,17 +44,22 @@ export class Game {
         return newPlayers;
     }
 
+    private setIndexPlayer(indexActualPlayer: number) {
+        if(indexActualPlayer == (this.players.length-1)) {
+            indexActualPlayer = 0;
+        }else {
+            indexActualPlayer++;
+        }
+        return indexActualPlayer;
+    }
+
     private divideDeckBetweenPlayers(deck: Deck) {
         let indexActualPlayer = 0;
         while(deck.size != 0) {
             const actualCard = deck.pool();
             if(actualCard == undefined) break;
             this.players[indexActualPlayer].deck.append(actualCard);
-            if(indexActualPlayer == (this.players.length-1)) {
-                indexActualPlayer = 0;
-            }else {
-                indexActualPlayer++;
-            }
+            indexActualPlayer = this.setIndexPlayer(indexActualPlayer);
         }
     }
 }
