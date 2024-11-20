@@ -11,11 +11,11 @@ export class Game {
     private players: Player[];
     private numberPlayers: number = 2;
     private turnsPlayed: number;
-    private result: Archive;
+    private result: any[];
 
     constructor() {
         this.players = this.inicializarPlayers();
-        this.result = Archive.create({name: "result", path: "", extension:Extensions.TXT});
+        this.result = [];
         this.turnsPlayed = 0;
     }
 
@@ -37,6 +37,7 @@ export class Game {
     }
 
     private checkVictory(objRound: Round, cardOther: Card): boolean {
+        
         if(objRound.intention == Intention.SUIT) return objRound.card.suit > cardOther.suit;
         return objRound.card.value > cardOther.value;
     }
@@ -62,15 +63,24 @@ export class Game {
         }
     }
 
+    private appendRoundToString(): void {
+        const playerResult: any[] = [];
+        this.players.forEach(player => {
+            playerResult.push({name: player.name, size: player.deck.size});
+        });
+        this.result.push({players: playerResult, round: this.turnsPlayed});
+    }
+
     private startGame(): void {
         let indexActualPlayer = 0;
         while(this.validatePlayersHasSomeCard()) {
-            console.log(this.players);
             this.turnsPlayed++;
             this.playRound(this.players[indexActualPlayer], this.players[this.setIndexPlayer(indexActualPlayer)]);
             indexActualPlayer = this.setIndexPlayer(indexActualPlayer);
+            this.appendRoundToString();
         }
-        console.log("Turnos Jogados: ", this.turnsPlayed);
+        const fileResult = Archive.create({name: "result", path:"", extension: Extensions.TXT});
+        fileResult.appendData(JSON.stringify(this.result));
     }
 
     private inicializarPlayers(): Player[] {

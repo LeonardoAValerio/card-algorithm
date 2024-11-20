@@ -1,3 +1,3 @@
 export enum Intention {
-    SUIT = 0, VALUE = 1
+    SUIT = "SUIT", VALUE = "VALUE"
 }
