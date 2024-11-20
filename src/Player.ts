@@ -1,6 +1,7 @@
 import { Card } from "./Card";
 import { Deck } from "./Deck";
 import { Intention } from "./utils/enums/Intentions";
+import { Round } from "./utils/interfaces/Round";
 
 export class Player {
     name: string;
@@ -11,11 +12,11 @@ export class Player {
         this.deck = deck;
     }
 
-    playCard(): {card: Card, intetion: Intention} {
+    playCard(): Round {
         const card = this.deck.pool();
         if(!card) throw new Error(`Card of player{${this.name}} is undefined!`);
         const intetion = this.chooseIntention(card);
-        return {card, intetion};
+        return {card: card, intention: intetion};
     }
 
     private chooseIntention(card: Card): Intention {
