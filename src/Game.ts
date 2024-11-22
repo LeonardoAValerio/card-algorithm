@@ -44,7 +44,7 @@ export class Game {
 
     private addCardsToWinnerPlayer(player: Player, cards: Card[]): void {
         for(let i = 0; i < 2; i++) {
-            if(randomNumber(1, 2) == 1) {
+            if(randomNumber({min: 1, max: 2}) == 1) {
                 player.deck.append(cards.pop() as Card);
             }else {
                 player.deck.append(cards.shift() as Card);

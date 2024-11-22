@@ -1,3 +1,5 @@
-export function randomNumber(min: number, max: number): number {
-    return Math.floor(min + (Math.random() * (max - min)));
+import { Range } from "./interfaces/Range";
+
+export function randomNumber(range:Range): number {
+    return Math.floor(range.min + (Math.random() * (range.max - range.min)));
 }
