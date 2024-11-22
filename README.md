@@ -24,7 +24,9 @@ O algoritmo foi desenvolvido para jogar este jogo de forma automática entre doi
 -  **Probabilidade Simples**: O jogador analisa as cartas disponíveis em sua mão e escolhe a melhor jogada com base na probabilidade calculada em relação ao baralho completo.
 
 -  **Probabilidade Complexa**: O jogador leva em consideração todas as cartas já jogadas, deduzindo as cartas restantes no deck do oponente. Dessa forma, ele pode calcular probabilidades mais precisas e otimizar suas escolhas.
+
 Neste projeto, o modelo inicial foi implementado com a abordagem simples para apresentar e testar o funcionamento do jogo.
+
 ---
 ## Como instalar e testar o projeto
 1. Faça um fork do projeto.
