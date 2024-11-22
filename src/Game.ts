@@ -2,8 +2,8 @@ import { Card } from "./Card";
 import { Deck } from "./Deck";
 import { Player } from "./Player";
 import { Intention } from "./utils/enums/Intentions";
-import { Extensions } from "./utils/File/Extensions";
-import { Archive } from "./utils/File/File";
+import { Extensions } from "./Archives/Extensions";
+import { Archive } from "./Archives/Archive";
 import { Round } from "./utils/interfaces/Round";
 import { randomNumber } from "./utils/numbers";
 
@@ -52,6 +52,14 @@ export class Game {
         }
     }
 
+    private appendRoundToResult(): void {
+        const playerResult: any[] = [];
+        this.players.forEach(player => {
+            playerResult.push({name: player.name, size: player.deck.size});
+        });
+        this.result.push({players: playerResult, round: this.turnsPlayed});
+    }
+
     private playRound(playerTurn: Player, playerChallenge: Player): void {
         const objRound = playerTurn.playCard();
         const cardOther = playerChallenge.deck.pool();
@@ -61,14 +69,6 @@ export class Game {
         }else {
             this.addCardsToWinnerPlayer(playerChallenge, [objRound.card, cardOther]);
         }
-    }
-
-    private appendRoundToResult(): void {
-        const playerResult: any[] = [];
-        this.players.forEach(player => {
-            playerResult.push({name: player.name, size: player.deck.size});
-        });
-        this.result.push({players: playerResult, round: this.turnsPlayed});
     }
 
     private startGame(): void {
