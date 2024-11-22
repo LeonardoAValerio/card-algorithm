@@ -63,7 +63,7 @@ export class Game {
         }
     }
 
-    private appendRoundToString(): void {
+    private appendRoundToResult(): void {
         const playerResult: any[] = [];
         this.players.forEach(player => {
             playerResult.push({name: player.name, size: player.deck.size});
@@ -77,10 +77,14 @@ export class Game {
             this.turnsPlayed++;
             this.playRound(this.players[indexActualPlayer], this.players[this.setIndexPlayer(indexActualPlayer)]);
             indexActualPlayer = this.setIndexPlayer(indexActualPlayer);
-            this.appendRoundToString();
+            this.appendRoundToResult();
         }
-        const fileResult = Archive.create({name: "result", path:"", extension: Extensions.TXT});
-        fileResult.appendData(JSON.stringify(this.result));
+        try {
+            const fileResult = Archive.create({name: "result", path:"", extension: Extensions.JSON});
+            fileResult.appendData(JSON.stringify(this.result));
+        }catch (e) {
+            console.log(e);
+        }
     }
 
     private inicializarPlayers(): Player[] {

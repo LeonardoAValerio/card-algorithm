@@ -37,4 +37,4 @@ npm  install
 ```bash
 npm  run  dev
 ```
-5. Ao rodar o projeto, será gerado um arquivo chamado ```result.txt``` dentro da pasta do projeto, onde são apresentadas todas as rodadas e a situação dos jogadores.
+5. Ao rodar o projeto, será gerado um arquivo chamado ```result.json``` dentro da pasta do projeto, onde são apresentadas todas as rodadas e a situação dos jogadores.
